@@ -1,0 +1,47 @@
+body {
+  margin: 0;
+  background: #0b0f14;
+  color: #e6edf3;
+  font-family: system-ui, Arial;
+}
+.box {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #111827;
+  border-radius: 12px;
+}
+input,
+button {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+button {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  margin-left: 8px;
+  cursor: pointer;
+}
+.warn {
+  background: #1f2937;
+  padding: 10px;
+  border-left: 4px solid #f59e0b;
+  border-radius: 8px;
+}
+.messages {
+  margin-top: 12px;
+  display: grid;
+  gap: 8px;
+}
+.success {
+  background: #065f46;
+  padding: 8px;
+  border-radius: 8px;
+}
+.error {
+  background: #7f1d1d;
+  padding: 8px;
+  border-radius: 8px;
+}

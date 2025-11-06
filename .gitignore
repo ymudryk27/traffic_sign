@@ -1,0 +1,13 @@
+# Virtual environment
+.venv/
+
+# Data and models
+data/
+model/
+*.h5
+*.zip
+
+# System files
+.DS_Store
+__pycache__/
+*.pyc
