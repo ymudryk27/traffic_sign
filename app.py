@@ -3,11 +3,12 @@ import numpy as np
 import cv2
 from flask import Flask, render_template, request, redirect, url_for, flash
 from tensorflow.keras.models import load_model
+model = load_model(MODEL_PATH)
 
 app = Flask(__name__)
 app.secret_key = "secret-key"
 
-MODEL_PATH = os.path.join("model", "traffic_model.h5")
+MODEL_PATH = os.path.join("model", "traffic_model.keras")
 LABELS_PATH = os.path.join("model", "labels.json")
 
 # Load model and labels
