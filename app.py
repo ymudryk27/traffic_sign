@@ -1,20 +1,18 @@
 import os, json
 import numpy as np
 import cv2
-from flask import Flask, render_template, request, redirect, url_for, flash
 from tensorflow.keras.models import load_model
-model = load_model(MODEL_PATH)
-
-app = Flask(__name__)
-app.secret_key = "secret-key"
+from flask import Flask, render_template, request, redirect, url_for, flash
 
 MODEL_PATH = os.path.join("model", "traffic_model.keras")
 LABELS_PATH = os.path.join("model", "labels.json")
 
-# Load model and labels
 model = load_model(MODEL_PATH)
 with open(LABELS_PATH, "r", encoding="utf-8") as f:
     labels = json.load(f)
+
+app = Flask(__name__)
+app.secret_key = "secret-key"
 
 def preprocess_image(file_bytes, img_size=64):
     arr = np.frombuffer(file_bytes, np.uint8)
