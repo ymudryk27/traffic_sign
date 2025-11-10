@@ -39,18 +39,33 @@ def predict():
         flash("No file selected.", "error")
         return redirect(url_for("index"))
 
-    img = preprocess_image(file.read(), img_size=64)
+    upload_dir = os.path.join("static", "uploads")
+    os.makedirs(upload_dir, exist_ok=True)
+
+    filepath = os.path.join(upload_dir, file.filename)
+    file.save(filepath)
+
+    
+    with open(filepath, "rb") as f:
+        img = preprocess_image(f.read(), img_size=64)
     if img is None:
         flash("Invalid image format.", "error")
         return redirect(url_for("index"))
 
+    
     preds = model.predict(img[np.newaxis, ...], verbose=0)
     cls = int(np.argmax(preds[0]))
     prob = float(np.max(preds[0]))
     label = labels.get(str(cls), f"Class {cls}")
 
-    flash(f"Result: {label} (p={prob:.3f})", "success")
-    return redirect(url_for("index"))
+    if prob >= 0.6:
+        message = f"{label} (p={prob:.3f})"
+    elif 0.3 <= prob < 0.6:
+        message = f"(LOW CONFIDENCE) {label} (p={prob:.3f})"
+    else:
+        message = f"Image is probably NOT a known traffic sign (max p={prob:.3f})"
 
+    
+    return render_template("index.html", result=message, image_url=url_for('static', filename=f"uploads/{file.filename}"))
 if __name__ == "__main__":
     app.run(debug=True)

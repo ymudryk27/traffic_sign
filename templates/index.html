@@ -1,35 +1,68 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>Traffic Sign Recognition — Demo</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <title>Traffic Sign Recognition</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #121212;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #00ff88;
+        }
+
+        img {
+            margin-top: 20px;
+            max-width: 300px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+        }
+
+        input[type=file] {
+            margin-top: 20px;
+            color: white;
+        }
+
+        button {
+            background: #00ff88;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #00cc70;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="box">
-        <h1>Traffic Sign Recognition — Demo</h1>
+    <h1>Traffic Sign Recognition</h1>
+    <form method="POST" action="/predict" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <br>
+        <button type="submit">Upload and Predict</button>
+    </form>
 
-        {% if not ready %}
-        <p class="warn"><b>Note:</b> The model is not loaded yet. Upload form works as a test.</p>
-        {% endif %}
+    {% if image_url %}
+    <img src="{{ image_url }}" alt="Uploaded Image">
+    {% endif %}
 
-        <form action="{{ url_for('predict') }}" method="POST" enctype="multipart/form-data">
-            <input type="file" name="file" accept="image/*" required>
-            <button type="submit">Recognize</button>
-        </form>
-
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        <div class="messages">
-            {% for category, message in messages %}
-            <div class="{{ category }}">{{ message }}</div>
-            {% endfor %}
-        </div>
-        {% endif %}
-        {% endwith %}
-    </div>
+    {% if result %}
+    <div class="result">Result: {{ result }}</div>
+    {% endif %}
 </body>
 
 </html>
