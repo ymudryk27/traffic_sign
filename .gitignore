@@ -6,6 +6,7 @@ data/
 model/
 *.h5
 *.zip
+static/uploads/
 
 # System files
 .DS_Store
