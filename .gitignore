@@ -3,7 +3,7 @@
 
 # Data and models
 data/
-model/
+#model/
 *.h5
 *.zip
 static/uploads/
